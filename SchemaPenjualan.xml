@@ -1,0 +1,34 @@
+<Schema name="New Schema1">
+  <Dimension type="StandardDimension" visible="true" name="dim_cabang">
+    <Hierarchy name="semua cabang" visible="true" hasAll="true" primaryKey="ID_Cabang">
+      <Table name="dim_cabang" alias="">
+      </Table>
+      <Level name="Nama_Provinsi" visible="true" table="dim_cabang" column="Nama_Provinsi" nameColumn="Nama_Provinsi" uniqueMembers="false">
+      </Level>
+      <Level name="Nama_Cabang" visible="true" table="dim_cabang" column="Nama_Cabang" nameColumn="Nama_Cabang" uniqueMembers="false">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Dimension type="StandardDimension" visible="true" name="dim_produk">
+    <Hierarchy name="semua produk" visible="true" hasAll="true" primaryKey="ID_Produk">
+      <Table name="dim_produk" alias="">
+      </Table>
+      <Level name="Nama_Produk" visible="true" table="dim_produk" column="Nama_Produk" nameColumn="Nama_Produk" uniqueMembers="false">
+      </Level>
+      <Level name="Harga" visible="true" table="dim_produk" column="Harga" nameColumn="Harga" uniqueMembers="false">
+      </Level>
+    </Hierarchy>
+  </Dimension>
+  <Cube name="penjualan" visible="true" cache="true" enabled="true">
+    <Table name="fact_pesanan" alias="">
+    </Table>
+    <DimensionUsage source="dim_cabang" name="cabang" visible="true" foreignKey="ID_Cabang">
+    </DimensionUsage>
+    <DimensionUsage source="dim_produk" name="produk" visible="true" foreignKey="ID_Produk">
+    </DimensionUsage>
+    <Measure name="total penjualan" column="total_transaksi" datatype="Integer" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="produk terjual" column="Jumlah" aggregator="sum" visible="true">
+    </Measure>
+  </Cube>
+</Schema>
